@@ -144,12 +144,96 @@ void Body::moveBackward()
 
 void Body::turnLeft()
 {
-    
+    _pawFrontRight.down();
+    _pawBackRight.down();
+    _pawMiddleLeft.down();
+
+    delay(SLEEP_SHORT);
+
+    _pawFrontLeft.up();
+    _pawBackLeft.up();
+    _pawMiddleRight.up();
+
+    delay(SLEEP_LONG);
+
+    _pawFrontRight.right();
+    _pawBackRight.right();
+    _pawMiddleLeft.right();
+
+    _pawFrontLeft.left();
+    _pawBackLeft.left();
+    _pawMiddleRight.left();
+
+    delay(SLEEP_LONG);
+
+    _pawFrontLeft.down();
+    _pawBackLeft.down();
+    _pawMiddleRight.down();
+
+    delay(SLEEP_SHORT);
+
+    _pawFrontRight.up();
+    _pawBackRight.up();
+    _pawMiddleLeft.up();
+
+    delay(SLEEP_LONG);
+
+    _pawFrontLeft.right();
+    _pawBackLeft.right();
+    _pawMiddleRight.right();
+
+    _pawFrontRight.left();
+    _pawBackRight.left();
+    _pawMiddleLeft.left();
+
+    delay(SLEEP_LONG);
 }
 
 void Body::turnRight()
 {
-    
+    _pawFrontRight.down();
+    _pawBackRight.down();
+    _pawMiddleLeft.down();
+
+    delay(SLEEP_SHORT);
+
+    _pawFrontLeft.up();
+    _pawBackLeft.up();
+    _pawMiddleRight.up();
+
+    delay(SLEEP_LONG);
+
+    _pawFrontRight.left();
+    _pawBackRight.left();
+    _pawMiddleLeft.left();
+
+    _pawFrontLeft.right();
+    _pawBackLeft.right();
+    _pawMiddleRight.right();
+
+    delay(SLEEP_LONG);
+
+    _pawFrontLeft.down();
+    _pawBackLeft.down();
+    _pawMiddleRight.down();
+
+    delay(SLEEP_SHORT);
+
+    _pawFrontRight.up();
+    _pawBackRight.up();
+    _pawMiddleLeft.up();
+
+    delay(SLEEP_LONG);
+
+    _pawFrontLeft.left();
+    _pawBackLeft.left();
+    _pawMiddleRight.left();
+
+    _pawFrontRight.right();
+    _pawBackRight.right();
+    _pawMiddleLeft.right();
+
+    delay(SLEEP_LONG);
 }
 
 void Body::reset()

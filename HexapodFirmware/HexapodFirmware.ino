@@ -17,7 +17,7 @@ void loop()
     }
     else
     {
-        hexapodBody->moveForward();
+        hexapodBody->turnLeft();
         rep--;
     }
 }

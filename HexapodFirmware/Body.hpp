@@ -11,6 +11,7 @@ class Body
         void turnLeft();
         void turnRight();
         void reset();
+        unsigned long getTimeout() const;
 
     private:
         Paw _pawFrontLeft;

@@ -48,6 +48,11 @@ Body::Body()
     _pawBackRight = Paw(pwmRight, SERV_BR_GROUND, SERV_BR_MIDDLE, SERV_BR_ROBOT);
 }
 
+unsigned long Body::getTimeout() const
+{
+    return SLEEP_SHORT * 2 + SLEEP_LONG * 4;
+}
+
 void Body::moveForward()
 {    
     _pawFrontRight.down();

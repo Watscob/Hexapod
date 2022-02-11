@@ -1,10 +1,10 @@
 #include "Paw.hpp"
 
-#define SERVOMIN 110
-#define SERVOMAX 490
+#define SERVOMIN 150
+#define SERVOMAX 600
 
-#define DEFAULT_ANGLE_GROUND 150
-#define DEFAULT_ANGLE_MIDDLE 45
+#define DEFAULT_ANGLE_GROUND 130
+#define DEFAULT_ANGLE_MIDDLE 50
 #define DEFAULT_ANGLE_ROBOT 90
 
 Paw::Paw(Adafruit_PWMServoDriver driver, uint8_t servoGround, uint8_t servoMiddle, uint8_t servoRobot)

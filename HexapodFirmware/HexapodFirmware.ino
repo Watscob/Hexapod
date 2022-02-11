@@ -4,8 +4,6 @@
 Body *hexapodBody;
 Bluetooth *bluetooth;
 
-int rep = 20;
-
 void setup()
 {
     hexapodBody = new Body();    
@@ -17,12 +15,13 @@ void setup()
 
 void loop()
 {
-    bluetooth->write("Loop ...\n");
     char c = bluetooth->read();
 
-    bluetooth->write("--> ");
     switch (c)
     {
+        case -1:
+            hexapodBody->reset();
+            return;
         case 'F':
             hexapodBody->moveForward();
             bluetooth->write("FORWARD\n");
@@ -45,7 +44,7 @@ void loop()
             break;
         default:
             hexapodBody->reset();
-            bluetooth->write("UNKNOWN CASE, RESET\n");
+            bluetooth->write("UNKNOWN CASE'" + String(c, DEC) + "', RESET\n");
             return;
     }
 }

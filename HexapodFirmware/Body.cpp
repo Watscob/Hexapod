@@ -1,6 +1,6 @@
 #include "Body.hpp"
 
-#define FREQUENCY 50
+#define FREQUENCY 60
 
 #define SERV_FL_GROUND 0
 #define SERV_FL_MIDDLE 1
@@ -30,6 +30,12 @@
 #define SLEEP_SHORT 75
 
 Body::Body()
+    :  _pawFrontLeft()
+    , _pawFrontRight()
+    , _pawMiddleLeft()
+    , _pawMiddleRight()
+    , _pawBackLeft()
+    , _pawBackRight()
 {
     Adafruit_PWMServoDriver pwmLeft = Adafruit_PWMServoDriver(0x40);
     Adafruit_PWMServoDriver pwmRight = Adafruit_PWMServoDriver(0x41);
@@ -54,7 +60,7 @@ unsigned long Body::getTimeout() const
 }
 
 void Body::moveForward()
-{    
+{
     _pawFrontRight.down();
     _pawBackRight.down();
     _pawMiddleLeft.down();

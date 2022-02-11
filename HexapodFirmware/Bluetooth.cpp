@@ -19,8 +19,9 @@ char Bluetooth::read()
 
 void Bluetooth::write(String str)
 {
-    char buf[str.length()];
-    str.toCharArray(buf, str.length());
-
-    Serial1.write(buf);
+    //char buf[str.length()];
+    //str.toCharArray(buf, str.length());
+//
+    //Serial1.write(buf);
+    Serial1.print(str);
 }

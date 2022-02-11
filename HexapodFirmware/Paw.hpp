@@ -9,6 +9,7 @@ class Paw
 public:
     Paw() = default;
     Paw(Adafruit_PWMServoDriver driver, uint8_t servoGround, uint8_t servoMiddle, uint8_t servoRobot);
+
     void setDefaultPosition();
     void setAll(int angle);
     void setAll(int angleGround, int angleMiddle, int angleRobot);

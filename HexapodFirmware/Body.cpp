@@ -30,28 +30,27 @@
 #define SLEEP_SHORT 75
 
 Body::Body()
-    :  _pawFrontLeft()
+    : _pwmLeft(Adafruit_PWMServoDriver(0x40))
+    , _pwmRight(Adafruit_PWMServoDriver(0x41))
+    , _pawFrontLeft()
     , _pawFrontRight()
     , _pawMiddleLeft()
     , _pawMiddleRight()
     , _pawBackLeft()
     , _pawBackRight()
 {
-    Adafruit_PWMServoDriver pwmLeft = Adafruit_PWMServoDriver(0x40);
-    Adafruit_PWMServoDriver pwmRight = Adafruit_PWMServoDriver(0x41);
+    _pwmLeft.begin();
+    _pwmLeft.setPWMFreq(FREQUENCY);
 
-    pwmLeft.begin();
-    pwmLeft.setPWMFreq(FREQUENCY);
+    _pwmRight.begin();
+    _pwmRight.setPWMFreq(FREQUENCY);
 
-    pwmRight.begin();
-    pwmRight.setPWMFreq(FREQUENCY);
-
-    _pawFrontLeft = Paw(pwmLeft, SERV_FL_GROUND, SERV_FL_MIDDLE, SERV_FL_ROBOT);
-    _pawFrontRight = Paw(pwmRight, SERV_FR_GROUND, SERV_FR_MIDDLE, SERV_FR_ROBOT);
-    _pawMiddleLeft = Paw(pwmLeft, SERV_ML_GROUND, SERV_ML_MIDDLE, SERV_ML_ROBOT);
-    _pawMiddleRight = Paw(pwmRight, SERV_MR_GROUND, SERV_MR_MIDDLE, SERV_MR_ROBOT);
-    _pawBackLeft = Paw(pwmLeft, SERV_BL_GROUND, SERV_BL_MIDDLE, SERV_BL_ROBOT);
-    _pawBackRight = Paw(pwmRight, SERV_BR_GROUND, SERV_BR_MIDDLE, SERV_BR_ROBOT);
+    _pawFrontLeft = Paw(_pwmLeft, SERV_FL_GROUND, SERV_FL_MIDDLE, SERV_FL_ROBOT);
+    _pawFrontRight = Paw(_pwmRight, SERV_FR_GROUND, SERV_FR_MIDDLE, SERV_FR_ROBOT);
+    _pawMiddleLeft = Paw(_pwmLeft, SERV_ML_GROUND, SERV_ML_MIDDLE, SERV_ML_ROBOT);
+    _pawMiddleRight = Paw(_pwmRight, SERV_MR_GROUND, SERV_MR_MIDDLE, SERV_MR_ROBOT);
+    _pawBackLeft = Paw(_pwmLeft, SERV_BL_GROUND, SERV_BL_MIDDLE, SERV_BL_ROBOT);
+    _pawBackRight = Paw(_pwmRight, SERV_BR_GROUND, SERV_BR_MIDDLE, SERV_BR_ROBOT);
 }
 
 unsigned long Body::getTimeout() const
@@ -59,8 +58,22 @@ unsigned long Body::getTimeout() const
     return SLEEP_SHORT * 2 + SLEEP_LONG * 4;
 }
 
+void Body::_sleep()
+{
+    _pwmLeft.sleep();
+    _pwmRight.sleep();
+}
+
+void Body::_wakeup()
+{
+    _pwmLeft.wakeup();
+    _pwmRight.wakeup();
+}
+
 void Body::moveForward()
 {
+    _wakeup();
+
     _pawFrontRight.down();
     _pawBackRight.down();
     _pawMiddleLeft.down();
@@ -104,10 +117,14 @@ void Body::moveForward()
     _pawMiddleLeft.right();
 
     delay(SLEEP_LONG);
+
+    _sleep();
 }
 
 void Body::moveBackward()
 {
+    _wakeup();
+
     _pawFrontRight.down();
     _pawBackRight.down();
     _pawMiddleLeft.down();
@@ -151,10 +168,14 @@ void Body::moveBackward()
     _pawMiddleLeft.left();
 
     delay(SLEEP_LONG);
+
+    _sleep();
 }
 
 void Body::turnLeft()
 {
+    _wakeup();
+
     _pawFrontRight.down();
     _pawBackRight.down();
     _pawMiddleLeft.down();
@@ -198,10 +219,14 @@ void Body::turnLeft()
     _pawMiddleLeft.left();
 
     delay(SLEEP_LONG);
+
+    _sleep();
 }
 
 void Body::turnRight()
 {
+    _wakeup();
+
     _pawFrontRight.down();
     _pawBackRight.down();
     _pawMiddleLeft.down();
@@ -245,14 +270,20 @@ void Body::turnRight()
     _pawMiddleLeft.right();
 
     delay(SLEEP_LONG);
+
+    _sleep();
 }
 
 void Body::reset()
 {
+    _wakeup();
+
     _pawFrontLeft.setDefaultPosition();
     _pawFrontRight.setDefaultPosition();
     _pawMiddleLeft.setDefaultPosition();
     _pawMiddleRight.setDefaultPosition();
     _pawBackLeft.setDefaultPosition();
     _pawBackRight.setDefaultPosition();
+
+    _sleep();
 }
